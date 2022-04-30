@@ -25,25 +25,30 @@ export const App = () => {
 				<h1>ToDo List</h1>
 				<input
 					className="box"
+					value={tarea}
 					placeholder="ingrese tarea"
 					onChange={(e) => {
 						setTarea(e.target.value);
 					}}
-					onDoubleClick={() => {
-						setLista([...lista, tarea]);
+					onKeyDown={(e) => {
+						if (e.key === "Enter") {
+							setLista([...lista, tarea]);
+							setTarea("");
+						}
 					}}
 				/>
 				<ul>
 					{lista.map(function (valor, i) {
 						return (
-							<div key={i}>
+							<div className="tareas" key={i}>
 								{valor}
 								<button
+									type="button"
+									className="btn-close borrar"
+									aria-label="Close"
 									onClick={() => {
 										borrar(i);
-									}}>
-									X
-								</button>
+									}}></button>
 							</div>
 						);
 					})}
